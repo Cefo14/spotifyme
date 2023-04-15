@@ -1,3 +1,119 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:sonarjs/recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    // Base
+    "brace-style": [
+      "error",
+      "stroustrup"
+    ],
+    "@typescript-eslint/brace-style": [
+      "error",
+      "stroustrup"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": [
+          "PropertyDefinition[decorators]",
+          "TSUnionType",
+          "TSTypeParameterInstantiation",
+          "TSIntersectionType"
+        ]
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        },
+        "multilineDetection": "brackets"
+      }
+    ],
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      {
+        "ignoreConditionalTests": false,
+        "ignoreMixedLogicalExpressions": false
+      }
+    ],
+    "@typescript-eslint/consistent-type-definitions": [
+      "error",
+      "interface"
+    ],
+    "@typescript-eslint/no-empty-interface": "error",
+    "@typescript-eslint/prefer-readonly": "error",
+    "@typescript-eslint/method-signature-style": "error",
+
+    // React
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "html": "ignore",
+        "custom": "enforce",
+        "explicitSpread": "enforce",
+        "exceptions": [
+          "Component"
+        ]
+      }
+    ],
+    "react/prop-types": "off",
+
+    // jsx-a11y
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      { "assert": "htmlFor" }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react"
+      ],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
+    }
+  ]
 }
