@@ -1,7 +1,7 @@
-import React from 'react';
+import styles from './HelloWorld.module.css';
 
 const HelloWorld = () => (
-  <h1>Hello World</h1>
+  <h1 className={styles.title}>Hello World</h1>
 );
 
 export default HelloWorld;

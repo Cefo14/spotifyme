@@ -6,8 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest"
+    "lint:code": "next lint",
+    "lint:code:fix": "npm run lint:code -- --fix",
+    "lint:styles": "stylelint src/**/*.css",
+    "lint:styles:fix": "npm run lint:styles -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:staged": "jest --watchAll=false --findRelatedTests",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/node": "18.15.11",
@@ -19,6 +25,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "17.6.1",
+    "@commitlint/config-conventional": "17.6.1",
     "@next/eslint-plugin-next": "13.3.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
@@ -26,6 +34,8 @@
     "@types/testing-library__jest-dom": "5.14.5",
     "@typescript-eslint/eslint-plugin": "5.58.0",
     "@typescript-eslint/parser": "5.58.0",
+    "commitizen": "4.3.0",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "8.38.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
@@ -38,7 +48,12 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-sonarjs": "0.19.0",
     "eslint-plugin-testing-library": "5.10.2",
+    "husky": "8.0.3",
     "jest": "29.5.0",
-    "jest-environment-jsdom": "29.5.0"
+    "jest-environment-jsdom": "29.5.0",
+    "lint-staged": "13.2.1",
+    "stylelint": "15.4.0",
+    "stylelint-config-css-modules": "4.2.0",
+    "stylelint-config-standard": "32.0.0"
   }
 }
