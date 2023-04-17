@@ -1,4 +1,6 @@
-import '@/styles/globals.css';
+import 'normalize.css';
+import 'sanitize.css';
+
 import type { AppProps } from 'next/app';
 
 const App = ({ Component, pageProps }: AppProps) => (
