@@ -1,0 +1,25 @@
+.container {
+  height: 100vh;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.title {
+  text-decoration: none;
+  margin: 0;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: var(--primar-color);
+}
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.backgroundSvg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

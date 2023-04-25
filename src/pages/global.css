@@ -1,0 +1,11 @@
+:root {
+  --primar-color: #1ed760;
+  --secondary-color: #181818;
+  --contrast-color: #fff;
+}
+
+html,
+body {
+  background-color: var(--secondary-color);
+  color: var(--contrast-color);
+}
