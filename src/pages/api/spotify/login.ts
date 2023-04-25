@@ -22,7 +22,8 @@ const handler = (
   };
 
   const MOVED_PERMANENTLY_HTTP_STATUS_CODE = 301;
-  const url = createURLWithQueryParams('https://accounts.spotify.com/authorize', params);
+  const BASE_URL = 'https://accounts.spotify.com/authorize';
+  const url = createURLWithQueryParams(BASE_URL, params);
   res.redirect(MOVED_PERMANENTLY_HTTP_STATUS_CODE, url);
 };
 
