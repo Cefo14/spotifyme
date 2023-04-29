@@ -1,43 +1,58 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
-import { Artist, ArtistResponse } from '@/types/Artist';
+import { Artist } from '@/types/Spotify.dto';
+import { SpotifyApi } from '@/services/SpotifyApi';
+
+import styles from './home.module.css';
 
 const Home = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [artists, setArtists] = useState<Artist[]>([]);
 
   // TODO this is a temporal feature
-  const params = useMemo(() => (
-    Object.fromEntries(searchParams.entries())
-  ), [searchParams]);
-
-  // TODO this is a temporal feature
-  useEffect(() => {
-    const currentHash = router.asPath.split('#')[1];
-    if (currentHash) {
-      router.push(`/home?${currentHash}`);
-    }
+  const spotifyToken = useMemo(() => {
+    const [, params] = router.asPath.split('#');
+    const searchParams = new URLSearchParams(params);
+    return searchParams.get('access_token');
   }, [router]);
 
   // TODO this is a temporal feature
   useEffect(() => {
-    if (!params?.access_token) return;
-    fetch('https://api.spotify.com/v1/me/top/artists?time_range=long_term', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${params.access_token}`
-      },
-      cache: 'force-cache'
-    })
-      .then((res) => res.json())
-      .then((data: ArtistResponse) => setArtists(data.items))
+    if (!spotifyToken) return;
+    const spotifyApi = new SpotifyApi(spotifyToken);
+
+    Promise.all([
+      spotifyApi.fetchTopArtists(),
+      spotifyApi.fetchCurrentUserProfile()
+    ])
+      .then(([topArtists, currentUserProfile]) => {
+        setArtists(topArtists.items);
+        console.log(topArtists, currentUserProfile);
+      })
       .catch(console.error);
-  }, [params]);
+  }, [spotifyToken]);
 
   return (
-    <section>
+    <section className={styles.container}>
+      <article className={styles.cardContainer}>
+        {
+          artists.map((artist) => (
+            <div key={artist.id} className={styles.card}>
+              <img
+                alt={artist.name}
+                src={artist.images[0].url}
+                width={150}
+                height={150}
+                className={styles.cardImage}
+                loading="lazy"
+              />
+              <h3>{ artist.name }</h3>
+            </div>
+          ))
+        }
+      </article>
       <pre>
         <code>
           {
