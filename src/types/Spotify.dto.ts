@@ -3,7 +3,7 @@ export interface ExternalUrls {
 }
 
 export interface Followers {
-  href: null;
+  href?: string;
   total: number;
 }
 
@@ -13,9 +13,6 @@ export interface Image {
   width: number;
 }
 
-export enum Type {
-  Artist = 'artist'
-}
 export interface Artist {
   external_urls: ExternalUrls;
   followers: Followers;
@@ -25,19 +22,63 @@ export interface Artist {
   images: Image[];
   name: string;
   popularity: number;
-  type: Type;
+  type: 'artist';
   uri: string;
 }
 
-export interface TopArtistsResponse {
+export interface ExternalIDS {
+  isrc: string;
+}
+
+export interface Album {
+  album_type: 'ALBUM' | 'COMPILATION' | 'SINGLE';
+  artists: Artist[];
+  available_markets: string[];
+  external_urls: ExternalUrls;
   href: string;
-  items: Artist[];
+  id: string;
+  images: Image[];
+  name: string;
+  release_date: Date;
+  release_date_precision: 'day';
+  total_tracks: number;
+  type: 'album';
+  uri: string;
+}
+
+export interface Track {
+  album: Album;
+  artists: Artist[];
+  available_markets: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: ExternalIDS;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  name: string;
+  popularity: number;
+  preview_url?: string;
+  track_number: number;
+  type: 'track';
+  uri: string;
+}
+
+export interface TopResPonse<I> {
+  href: string;
+  items: I[];
   limit: number;
   next: string;
   offset: number;
-  previous: null;
+  previous?: string;
   total: number;
 }
+
+export type TopArtistsResponse = TopResPonse<Artist>;
+
+export type TopTracksResponse = TopResPonse<Track>;
 
 export interface CurrentUserProfileResponse {
   display_name: string;
@@ -45,7 +86,7 @@ export interface CurrentUserProfileResponse {
   followers: Followers;
   href: string;
   id: string;
-  images: any[];
+  images: Image[];
   type: string;
   uri: string;
 }

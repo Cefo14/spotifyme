@@ -1,0 +1,31 @@
+.container {
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.maxWidth_xl {
+  max-width: 1440px;
+  padding: 0 1.5rem;
+}
+
+.maxWidth_lg {
+  max-width: 1280px;
+  padding: 0 1.5rem;
+}
+
+.maxWidth_md {
+  max-width: 960px;
+  padding: 0 1.5rem;
+}
+
+.maxWidth_sm {
+  max-width: 600px;
+}
+
+.maxWidth_xs {
+  max-width: 480px;
+}

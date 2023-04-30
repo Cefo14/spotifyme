@@ -1,4 +1,4 @@
-import { CurrentUserProfileResponse, TopArtistsResponse } from './Spotify.dto';
+import { CurrentUserProfileResponse, TopArtistsResponse, TopTracksResponse } from './Spotify.dto';
 
 export enum TimeRange {
   longTerm = 'long_term',
@@ -9,4 +9,5 @@ export enum TimeRange {
 export interface SpotifyService {
   fetchCurrentUserProfile: () => Promise<CurrentUserProfileResponse>;
   fetchTopArtists: (timeRange: TimeRange) => Promise<TopArtistsResponse>;
+  fetchTopTracks: (timeRange: TimeRange) => Promise<TopTracksResponse>;
 }

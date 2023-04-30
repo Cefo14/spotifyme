@@ -3,10 +3,20 @@
   --secondary-color: #121414;
   --tertiary-color: #511281;
   --contrast-color: #e8e6e3;
+  --spacing: 1rem;
 }
 
 html,
 body {
   background-color: var(--secondary-color);
   color: var(--contrast-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
 }

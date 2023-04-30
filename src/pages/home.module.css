@@ -1,24 +1,47 @@
-.container {
-  padding: 1rem;
+.avatar {
+  border-radius: 50%;
+}
+
+.nav {
+  width: 100%;
+  max-width: 500px;
+}
+
+.list {
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #0e0f10;
+  box-shadow: 10px 10px 8px 0 #080808
+}
+
+.listItem {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .cardContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 1rem;
-  justify-content: center;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
 
 .card {
-  display: grid;
-  place-items: center;
-  border: solid 4px var(--tertiary-color);
+  background-color: #0e0f10;
   padding: 1rem;
-  border-radius: 24px;
-  width: 240px;
-  text-align: center;
+  border-radius: 8px;
+  box-shadow: 10px 10px 8px 0 #080808
 }
 
 .cardImage {
-  border-radius: 50%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.center {
+  text-align: center;
 }
