@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 
+import type {
+  MaxWidth
+} from '.';
+
 import {
   Container,
   MAX_WIDTH_CLASS_NAMES,
   DEFAULT_MAX_WIDTH,
-  NO_PADDING_CLASS_NAME,
-  MaxWidth
+  NO_PADDING_CLASS_NAME
 } from '.';
 
 describe('Container Component', () => {

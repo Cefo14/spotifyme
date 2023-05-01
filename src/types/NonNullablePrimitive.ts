@@ -1,4 +1,4 @@
-import { Primitive } from './Primitive';
+import type { Primitive } from './Primitive';
 
 export type NonNullablePrimitive = NonNullable<Primitive>;
 

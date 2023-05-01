@@ -17,6 +17,8 @@
   },
   "rules": {
     // Base
+    "class-methods-use-this": ["off", { "enforceForClassFields": false }],
+
     "brace-style": [
       "error",
       "stroustrup"
@@ -25,6 +27,7 @@
       "error",
       "stroustrup"
     ],
+
     "comma-dangle": [
       "error",
       "never"
@@ -33,6 +36,7 @@
       "error",
       "never"
     ],
+
     "@typescript-eslint/indent": [
       "error",
       2,
@@ -73,7 +77,12 @@
     "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/prefer-readonly": "error",
     "@typescript-eslint/method-signature-style": "error",
-    "class-methods-use-this": ["off", { "enforceForClassFields": false }],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ],
 
     // React
     "react/function-component-definition": [
@@ -99,7 +108,10 @@
     "jsx-a11y/label-has-associated-control": [
       "error",
       { "assert": "htmlFor" }
-    ]
+    ],
+
+    // import
+    "import/prefer-default-export": "off"
   },
   "overrides": [
     {

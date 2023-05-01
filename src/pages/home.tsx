@@ -4,12 +4,23 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Container, MaxWidths } from '@/components/Container';
-import Nav from '@/components/Nav';
+import { Nav } from '@/components/Nav';
 
 import { SpotifyApi } from '@/services/SpotifyApi';
-import { Artist, CurrentUserProfileResponse, Track } from '@/types/Spotify.dto';
+import type { Artist, CurrentUserProfileResponse, Track } from '@/types/Spotify.dto';
 
 import styles from './home.module.css';
+
+const NAV_ITEMS = [
+  {
+    name: 'Top Artist',
+    url: '#'
+  },
+  {
+    name: 'Top Tracks',
+    url: '#'
+  }
+];
 
 const Home = () => {
   const router = useRouter();
@@ -63,7 +74,7 @@ const Home = () => {
 
   return (
     <>
-      <Nav title={currentUserProfile?.display_name} />
+      <Nav title={currentUserProfile?.display_name} items={NAV_ITEMS} />
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
         <h2 className={styles.textCenter}>Top Artists</h2>
         <div className={styles.cardContainer}>

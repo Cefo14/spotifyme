@@ -1,5 +1,6 @@
-import { CurrentUserProfileResponse, TopArtistsResponse, TopTracksResponse } from '@/types/Spotify.dto';
-import { SpotifyService, TimeRange, TimeRanges } from '@/types/SpotifyService';
+import type { CurrentUserProfileResponse, TopArtistsResponse, TopTracksResponse } from '@/types/Spotify.dto';
+import type { SpotifyService, TimeRange } from '@/types/SpotifyService';
+import { TimeRanges } from '@/enums/SpotifyService';
 
 export class SpotifyApi implements SpotifyService {
   private readonly BASE_URL = 'https://api.spotify.com/v1';

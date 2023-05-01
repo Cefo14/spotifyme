@@ -1,4 +1,4 @@
-import { Primitive } from '../types/Primitive';
+import type { Primitive } from '../types/Primitive';
 
 type QueryParams = Record<string, Primitive | Primitive[]>;
 

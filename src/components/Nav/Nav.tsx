@@ -1,18 +1,10 @@
-import { memo } from 'react';
+import type { FC } from 'react';
+import type { NavProps } from './types';
 import styles from './styles.module.css';
 
-const Nav = ({
+export const Nav: FC<NavProps> = ({
   title = '',
-  routes = [
-    {
-      name: 'Top Artist',
-      url: '#'
-    },
-    {
-      name: 'Top Tracks',
-      url: '#'
-    }
-  ]
+  items = []
 }) => (
   <header className={styles.header}>
     <h3 className={styles.title}>
@@ -29,13 +21,13 @@ const Nav = ({
       </label>
       <ul className={styles.list}>
         {
-          routes.map((route) => (
+          items.map((item) => (
             <li
-              key={route.name}
+              key={item.name}
               className={styles.listItem}
             >
-              <a href={route.url}>
-                { route.name }
+              <a href={item.url}>
+                { item.name }
               </a>
             </li>
           ))
@@ -44,5 +36,3 @@ const Nav = ({
     </nav>
   </header>
 );
-
-export default memo(Nav);
