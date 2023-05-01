@@ -1,5 +1,5 @@
 import { CurrentUserProfileResponse, TopArtistsResponse, TopTracksResponse } from '@/types/Spotify.dto';
-import { SpotifyService, TimeRange } from '@/types/SpotifyService';
+import { SpotifyService, TimeRange, TimeRanges } from '@/types/SpotifyService';
 
 export class SpotifyApi implements SpotifyService {
   private readonly BASE_URL = 'https://api.spotify.com/v1';
@@ -27,7 +27,7 @@ export class SpotifyApi implements SpotifyService {
     return data;
   }
 
-  async fetchTopArtists(timeRange: TimeRange = TimeRange.longTerm): Promise<TopArtistsResponse> {
+  async fetchTopArtists(timeRange: TimeRange = TimeRanges.short_term): Promise<TopArtistsResponse> {
     const url = `${this.BASE_URL}/me/top/artists?time_range=${timeRange}`;
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(url, config);
@@ -35,7 +35,7 @@ export class SpotifyApi implements SpotifyService {
     return data;
   }
 
-  async fetchTopTracks(timeRange: TimeRange = TimeRange.longTerm): Promise<TopTracksResponse> {
+  async fetchTopTracks(timeRange: TimeRange = TimeRanges.short_term): Promise<TopTracksResponse> {
     const url = `${this.BASE_URL}/me/top/tracks?time_range=${timeRange}`;
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(url, config);

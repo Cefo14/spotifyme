@@ -66,7 +66,7 @@ export interface Track {
   uri: string;
 }
 
-export interface TopResPonse<I> {
+export interface TopResponse<I> {
   href: string;
   items: I[];
   limit: number;
@@ -76,9 +76,9 @@ export interface TopResPonse<I> {
   total: number;
 }
 
-export type TopArtistsResponse = TopResPonse<Artist>;
+export type TopArtistsResponse = TopResponse<Artist>;
 
-export type TopTracksResponse = TopResPonse<Track>;
+export type TopTracksResponse = TopResponse<Track>;
 
 export interface CurrentUserProfileResponse {
   display_name: string;

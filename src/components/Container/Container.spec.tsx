@@ -6,7 +6,7 @@ import {
   MAX_WIDTH_CLASS_NAMES,
   DEFAULT_MAX_WIDTH,
   NO_PADDING_CLASS_NAME,
-  MaxWidthType
+  MaxWidth
 } from '.';
 
 describe('Container Component', () => {
@@ -74,7 +74,7 @@ describe('Container Component', () => {
         view.rerender(
           <Container
             component={role}
-            maxWidth={maxWidth as MaxWidthType}
+            maxWidth={maxWidth as MaxWidth}
           />
         );
 

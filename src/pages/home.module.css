@@ -1,26 +1,10 @@
+.container {
+  display: grid;
+  gap: 2rem;
+}
+
 .avatar {
   border-radius: 50%;
-}
-
-.nav {
-  width: 100%;
-  max-width: 500px;
-}
-
-.list {
-  margin: 0;
-  display: grid;
-  gap: 1rem;
-  padding: 1.5rem;
-  background-color: #0e0f10;
-  box-shadow: 10px 10px 8px 0 #080808
-}
-
-.listItem {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  gap: 1rem;
 }
 
 .cardContainer {
@@ -42,6 +26,47 @@
   object-fit: fill;
 }
 
-.center {
+.textCenter {
   text-align: center;
+}
+
+/* TODO REMOVE */
+.nav {
+  width: 100%;
+  background-color: #0e0f10;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 0 1.5rem;
+  box-shadow: 0 8px 8px 0 #080808;
+  margin-bottom: 1rem;
+}
+
+.navInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.navMenu {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.navLink {
+  color: var(--contrast-color);
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: inherit;
+}
+
+.navLink_active {
+  background-color: var(--tertiary-color);
+}
+
+.navHeader {
+  display: inline-flex;
+  gap: 1rem;
 }

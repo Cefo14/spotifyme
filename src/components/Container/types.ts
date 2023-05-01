@@ -1,9 +1,9 @@
 import { ElementType } from 'react';
 import { PolymorphicComponentPropsWithoutRef } from '@/types/PolymorphicComponent';
 
-export type MaxWidthType = 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+export type MaxWidth = 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 
-export const MaxWidthTypes: { [key in MaxWidthType]: key } = {
+export const MaxWidths: { [key in MaxWidth]: key } = {
   xl: 'xl',
   lg: 'lg',
   md: 'md',
@@ -12,7 +12,7 @@ export const MaxWidthTypes: { [key in MaxWidthType]: key } = {
 } as const;
 
 export interface ContainerProps {
-  maxWidth?: MaxWidthType;
+  maxWidth?: MaxWidth;
   noPadding?: boolean;
 }
 

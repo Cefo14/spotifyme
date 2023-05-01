@@ -12,9 +12,7 @@ const handler = (
     client_id: process.env.SPOTIFY_CLIENT_ID,
     redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
     scope: [
-      'user-top-read',
-      'user-read-currently-playing',
-      'user-read-playback-state'
+      'user-top-read'
     ],
     response_type: 'token',
     show_dialog: 'true',

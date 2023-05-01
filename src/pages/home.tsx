@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Container, MaxWidthTypes } from '@/components/Container';
+import { Container, MaxWidths } from '@/components/Container';
+import Nav from '@/components/Nav';
 
 import { SpotifyApi } from '@/services/SpotifyApi';
 import { Artist, CurrentUserProfileResponse, Track } from '@/types/Spotify.dto';
@@ -22,6 +23,17 @@ const Home = () => {
     const searchParams = new URLSearchParams(params);
     return searchParams.get('access_token');
   }, [router]);
+
+  const genresCounter = useMemo(() => {
+    const artisGenres = artists.map((artist) => artist.genres).flat();
+    const counter = artisGenres.reduce((acc, genre) => {
+      const currentValue = acc.get(genre) ?? 0;
+      acc.set(genre, currentValue + 1);
+      return acc;
+    }, new Map<string, number>());
+
+    return Object.fromEntries(counter.entries());
+  }, [artists]);
 
   // TODO this is a temporal feature
   useEffect(() => {
@@ -47,87 +59,57 @@ const Home = () => {
 
   const tenArtists = artists;
   const tenTracks = tracks;
+  console.log(genresCounter);
 
   return (
-    <Container maxWidth={MaxWidthTypes.lg}>
-      <h2>Top Artists</h2>
-      <nav className={styles.nav}>
-        <ul className={styles.list}>
+    <>
+      <Nav title={currentUserProfile?.display_name} />
+      <Container maxWidth={MaxWidths.lg} className={styles.container}>
+        <h2 className={styles.textCenter}>Top Artists</h2>
+        <div className={styles.cardContainer}>
           {
-            tenArtists.map((artist) => (
-              <li key={artist.id} className={styles.listItem}>
+            tenArtists.map((artist, index) => (
+              <article key={artist.id} className={styles.card}>
                 <img
                   alt={artist.name}
                   src={artist.images[0].url}
-                  width={75}
-                  height={75}
-                  className={styles.avatar}
+                  width={250}
+                  height={250}
+                  className={styles.cardImage}
                   loading="lazy"
                 />
-                <h3>{artist.name}</h3>
-              </li>
+                <h4 className={styles.textCenter}>{`#${index + 1}`}</h4>
+                <h3 className={styles.textCenter}>
+                  {artist.name}
+                </h3>
+              </article>
             ))
           }
-        </ul>
-      </nav>
-      <br />
-      <article className={styles.card}>
-        <img
-          alt={currentUserProfile?.display_name?.[0]?.toUpperCase()}
-          src={currentUserProfile?.images?.[0]?.url}
-          width={75}
-          height={75}
-          className={styles.avatar}
-          loading="lazy"
-        />
-        <h3>
-          {currentUserProfile?.display_name}
-        </h3>
-      </article>
-      <h2 className={styles.center}>Top Artists</h2>
-      <div className={styles.cardContainer}>
-        {
-          tenArtists.map((artist, index) => (
-            <article key={artist.id} className={styles.card}>
-              <img
-                alt={artist.name}
-                src={artist.images[0].url}
-                width={250}
-                height={250}
-                className={styles.cardImage}
-                loading="lazy"
-              />
-              <h4 className={styles.center}>{`#${index + 1}`}</h4>
-              <h3 className={styles.center}>
-                {artist.name}
-              </h3>
-            </article>
-          ))
-        }
-      </div>
+        </div>
 
-      <h2 className={styles.center}>Top Tracks</h2>
-      <div className={styles.cardContainer}>
-        {
-          tenTracks.map((track, index) => (
-            <article key={track.id} className={styles.card}>
-              <img
-                alt={track.name}
-                src={track.album.images[0].url}
-                width={250}
-                height={250}
-                className={styles.cardImage}
-                loading="lazy"
-              />
-              <h4 className={styles.center}>{`#${index + 1}`}</h4>
-              <h3 className={styles.center}>
-                {track.name}
-              </h3>
-            </article>
-          ))
-        }
-      </div>
-    </Container>
+        <h2 className={styles.textCenter}>Top Tracks</h2>
+        <div className={styles.cardContainer}>
+          {
+            tenTracks.map((track, index) => (
+              <article key={track.id} className={styles.card}>
+                <img
+                  alt={track.name}
+                  src={track.album.images[0].url}
+                  width={250}
+                  height={250}
+                  className={styles.cardImage}
+                  loading="lazy"
+                />
+                <h4 className={styles.textCenter}>{`#${index + 1}`}</h4>
+                <h3 className={styles.textCenter}>
+                  {track.name}
+                </h3>
+              </article>
+            ))
+          }
+        </div>
+      </Container>
+    </>
   );
 };
 
