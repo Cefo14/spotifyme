@@ -1,6 +1,4 @@
-import type { Primitive } from '../types/Primitive';
-
-type QueryParams = Record<string, Primitive | Primitive[]>;
+import type { QueryParams } from '@/types/QueryParams';
 
 export const createURLWithQueryParams = <U extends string, P extends QueryParams>
 (url: U, params: P): string => {

@@ -66,6 +66,15 @@ export interface Track {
   uri: string;
 }
 
+export interface Seed {
+  afterFilteringSize: number;
+  afterRelinkingSize: number;
+  href: null;
+  id: string;
+  initialPoolSize: number;
+  type: string;
+}
+
 export interface TopResponse<I> {
   href: string;
   items: I[];
@@ -89,4 +98,9 @@ export interface CurrentUserProfileResponse {
   images: Image[];
   type: string;
   uri: string;
+}
+
+export interface RecommendationsResponse {
+  seeds: Seed[];
+  tracks: Track[];
 }

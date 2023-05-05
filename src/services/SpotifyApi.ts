@@ -1,6 +1,13 @@
-import type { CurrentUserProfileResponse, TopArtistsResponse, TopTracksResponse } from '@/types/Spotify.dto';
-import type { SpotifyService, TimeRange } from '@/types/SpotifyService';
+import type {
+  CurrentUserProfileResponse,
+  TopArtistsResponse,
+  TopTracksResponse,
+  RecommendationsResponse
+} from '@/types/Spotify.dto';
+import type { SpotifyService, TimeRange, RecommendationParams } from '@/types/SpotifyService';
+import type { QueryParams } from '@/types/QueryParams';
 import { TimeRanges } from '@/enums/SpotifyService';
+import { createURLWithQueryParams } from '@/utils/url';
 
 export class SpotifyApi implements SpotifyService {
   private readonly BASE_URL = 'https://api.spotify.com/v1';
@@ -41,6 +48,15 @@ export class SpotifyApi implements SpotifyService {
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(url, config);
     const data: TopTracksResponse = await response.json();
+    return data;
+  }
+
+  async fetchRecommendations(params: RecommendationParams): Promise<RecommendationsResponse> {
+    const url = `${this.BASE_URL}/recommendations`;
+    const urlWithParams = createURLWithQueryParams(url, params as QueryParams);
+    const config = this.createConfig({ method: 'GET' });
+    const response = await fetch(urlWithParams, config);
+    const data: RecommendationsResponse = await response.json();
     return data;
   }
 }
