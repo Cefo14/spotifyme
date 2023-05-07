@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 
 import { Container, MaxWidths } from '@/components/Container';
 import { Nav } from '@/components/Nav';
+import { Grid } from '@/components/Grid';
+import { GridItem } from '@/components/GridItem';
 
 import { SpotifyApi } from '@/services/SpotifyApi';
 import type { Artist, CurrentUserProfileResponse, Track } from '@/types/Spotify.dto';
@@ -77,8 +79,6 @@ const Home = () => {
         console.log(error);
         router.replace('/');
       });
-
-    spotifyApi.fetchRecommendations({ seed_genres: ['rock'] }).then(console.log);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyToken]);
 
@@ -105,10 +105,10 @@ const Home = () => {
       <Nav title={currentUserProfile?.display_name} items={NAV_ITEMS} />
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
         <h2 className={styles.textCenter}>Top Artists</h2>
-        <ul className={styles.cardList}>
+        <Grid>
           {
             artists.map((artist, index) => (
-              <li key={artist.id} className={styles.cardListItem}>
+              <GridItem key={artist.id}>
                 <article className={styles.card}>
                   <img
                     alt={artist.name}
@@ -123,16 +123,16 @@ const Home = () => {
                     <div>{artist.name}</div>
                   </h3>
                 </article>
-              </li>
+              </GridItem>
             ))
           }
-        </ul>
+        </Grid>
 
         <h2 className={styles.textCenter}>Top Tracks</h2>
-        <ul className={styles.cardList}>
+        <Grid>
           {
             tracks.map((track, index) => (
-              <li key={track.id} className={styles.cardListItem}>
+              <GridItem key={track.id}>
                 <article className={styles.card}>
                   <img
                     alt={track.name}
@@ -146,16 +146,16 @@ const Home = () => {
                     <div>{track.name}</div>
                   </h3>
                 </article>
-              </li>
+              </GridItem>
             ))
           }
-        </ul>
+        </Grid>
 
         <h2 className={styles.textCenter}>Recommendation</h2>
-        <ul className={styles.cardList}>
+        <Grid gridAutoRows="22rem">
           {
             trackRecommendations.map((trackRecommendation) => (
-              <li key={trackRecommendation.id} className={styles.cardListItem}>
+              <GridItem key={trackRecommendation.id}>
                 <iframe
                   title={trackRecommendation.name}
                   src={`https://open.spotify.com/embed/track/${trackRecommendation.id}`}
@@ -165,10 +165,10 @@ const Home = () => {
                   height={16 * 30}
                   frameBorder={0}
                 />
-              </li>
+              </GridItem>
             ))
           }
-        </ul>
+        </Grid>
       </Container>
     </main>
   );

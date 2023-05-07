@@ -1,10 +1,10 @@
+import type { SpotifyService, TimeRange, RecommendationParams } from '@/types/SpotifyService';
 import type {
   CurrentUserProfileResponse,
   TopArtistsResponse,
   TopTracksResponse,
   RecommendationsResponse
 } from '@/types/Spotify.dto';
-import type { SpotifyService, TimeRange, RecommendationParams } from '@/types/SpotifyService';
 import type { QueryParams } from '@/types/QueryParams';
 import { TimeRanges } from '@/enums/SpotifyService';
 import { createURLWithQueryParams } from '@/utils/url';
@@ -36,17 +36,19 @@ export class SpotifyApi implements SpotifyService {
   }
 
   async fetchTopArtists(timeRange: TimeRange = TimeRanges.short_term): Promise<TopArtistsResponse> {
-    const url = `${this.BASE_URL}/me/top/artists?time_range=${timeRange}`;
+    const url = `${this.BASE_URL}/me/top/artists`;
+    const urlWithParams = createURLWithQueryParams(url, { time_range: timeRange });
     const config = this.createConfig({ method: 'GET' });
-    const response = await fetch(url, config);
+    const response = await fetch(urlWithParams, config);
     const data: TopArtistsResponse = await response.json();
     return data;
   }
 
   async fetchTopTracks(timeRange: TimeRange = TimeRanges.short_term): Promise<TopTracksResponse> {
-    const url = `${this.BASE_URL}/me/top/tracks?time_range=${timeRange}`;
+    const url = `${this.BASE_URL}/me/top/tracks`;
+    const urlWithParams = createURLWithQueryParams(url, { time_range: timeRange });
     const config = this.createConfig({ method: 'GET' });
-    const response = await fetch(url, config);
+    const response = await fetch(urlWithParams, config);
     const data: TopTracksResponse = await response.json();
     return data;
   }

@@ -7,21 +7,6 @@
   border-radius: 50%;
 }
 
-.cardList {
-  display: grid;
-  gap: 1rem;
-  grid-auto-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  margin: 0;
-  padding: 0;
-}
-
-.cardListItem {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
 .card {
   background-color: #0e0f10;
   padding: 1rem;
