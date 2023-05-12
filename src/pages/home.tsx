@@ -73,7 +73,6 @@ const Home = () => {
         setArtists(topArtistsResponse.items);
         setTracks(topTracksResponse.items);
         setCurrentUserProfile(currentUserProfileResponse);
-        console.log(topArtistsResponse, topTracksResponse, currentUserProfileResponse);
       })
       .catch((error) => {
         console.log(error);
@@ -85,20 +84,20 @@ const Home = () => {
   useEffect(() => {
     if (genreCounts.length === 0 || !spotifyToken) return;
     const spotifyApi = new SpotifyApi(spotifyToken);
-    const seedArtists = artists.slice(0, 2).map((artist) => artist.id);
-    const seedTracks = artists.slice(0, 2).map((track) => track.id);
-    const seedGenres = genreCounts.slice(0, 1).map((genreCount) => genreCount.name);
-    spotifyApi.fetchRecommendations({
-      seed_artists: seedArtists,
-      seed_tracks: seedTracks,
-      seed_genres: seedGenres
-    }).then((recommendations) => {
-      setTrackRecommendations(recommendations.tracks);
-    });
+    const [firstArtist, secondArtist] = artists;
+    const [firstTrack, secondTrack] = tracks;
+    const [topGenre] = genreCounts;
+    spotifyApi
+      .fetchRecommendations({
+        seed_artists: [firstArtist.id, secondArtist.id],
+        seed_tracks: [firstTrack.id, secondTrack.id],
+        seed_genres: topGenre.name
+      })
+      .then((recommendations) => {
+        setTrackRecommendations(recommendations.tracks);
+      });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyToken, genreCounts]);
-
-  console.log({ genreCounts });
 
   return (
     <main>
@@ -162,8 +161,7 @@ const Home = () => {
                   allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
                   width="100%"
-                  height={16 * 30}
-                  frameBorder={0}
+                  height={480}
                 />
               </GridItem>
             ))

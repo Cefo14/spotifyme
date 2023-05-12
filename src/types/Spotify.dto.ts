@@ -13,12 +13,16 @@ export interface Image {
   width: number;
 }
 
+export type ArtistId = string;
+
+export type Genre = string;
+
 export interface Artist {
   external_urls: ExternalUrls;
   followers: Followers;
-  genres: string[];
+  genres: Genre[];
   href: string;
-  id: string;
+  id: ArtistId;
   images: Image[];
   name: string;
   popularity: number;
@@ -26,7 +30,7 @@ export interface Artist {
   uri: string;
 }
 
-export interface ExternalIDS {
+export interface ExternalIds {
   isrc: string;
 }
 
@@ -46,6 +50,8 @@ export interface Album {
   uri: string;
 }
 
+export type TrackId = string;
+
 export interface Track {
   album: Album;
   artists: Artist[];
@@ -53,10 +59,10 @@ export interface Track {
   disc_number: number;
   duration_ms: number;
   explicit: boolean;
-  external_ids: ExternalIDS;
+  external_ids: ExternalIds;
   external_urls: ExternalUrls;
   href: string;
-  id: string;
+  id: TrackId;
   is_local: boolean;
   name: string;
   popularity: number;

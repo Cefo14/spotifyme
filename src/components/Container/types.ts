@@ -8,11 +8,9 @@ export interface ContainerProps {
   noPadding?: boolean;
 }
 
-export type ContainePolymorphicProps<Component extends ElementType> = (
-  PolymorphicComponentPropsWithoutRef<
-    Component,
-    ContainerProps
-  >
-);
+export type ContainePolymorphicProps<E extends ElementType> = PolymorphicComponentPropsWithoutRef<
+  E,
+  ContainerProps
+>;
 
 export default ContainePolymorphicProps;
