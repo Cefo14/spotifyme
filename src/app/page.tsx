@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import styles from './index.module.css';
+import styles from './page.module.css';
 
 const Login = () => (
   <section className={styles.container}>
     <Link
       className={styles.titleLink}
-      href="/api/spotify/login"
+      href="/api/spotify/authorize"
     >
       <h2 className={styles.title}>
         Login with spotify

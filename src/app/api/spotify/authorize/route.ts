@@ -1,12 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { redirect } from 'next/navigation';
 import crypto from 'crypto';
 
-import { createURLWithQueryParams } from '../../../utils/url';
+import { createURLWithQueryParams } from '@/utils/url';
 
-const handler = (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export async function GET() {
   const state = crypto.randomBytes(16);
   const params = {
     client_id: process.env.SPOTIFY_CLIENT_ID,
@@ -19,10 +16,7 @@ const handler = (
     state: state.toString('hex')
   };
 
-  const MOVED_PERMANENTLY_HTTP_STATUS_CODE = 301;
   const BASE_URL = 'https://accounts.spotify.com/authorize';
   const url = createURLWithQueryParams(BASE_URL, params);
-  res.redirect(MOVED_PERMANENTLY_HTTP_STATUS_CODE, url);
-};
-
-export default handler;
+  redirect(url);
+}

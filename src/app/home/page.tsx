@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
+'use client';
+
 import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
 
 import { Container, MaxWidths } from '@/components/Container';
 import { Nav } from '@/components/Nav';
@@ -25,11 +26,11 @@ const NAV_ITEMS = [
 ];
 
 interface GenreCount {
-  name: string; count: number;
+  name: string;
+  count: number;
 }
 
 const Home = () => {
-  const router = useRouter();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [trackRecommendations, setTrackRecommendations] = useState<Track[]>([]);
@@ -37,10 +38,10 @@ const Home = () => {
 
   // TODO this is a temporal feature
   const spotifyToken = useMemo(() => {
-    const [, params] = router.asPath.split('#');
-    const searchParams = new URLSearchParams(params);
+    // const [, params] = router.asPath.split('#');
+    const searchParams = new URLSearchParams('');
     return searchParams.get('access_token');
-  }, [router]);
+  }, []);
 
   const genreCounts = useMemo<GenreCount[]>(() => {
     const genres = artists.flatMap((artist) => artist.genres);
@@ -76,7 +77,7 @@ const Home = () => {
       })
       .catch((error) => {
         console.log(error);
-        router.replace('/');
+        // router.replace('/');
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyToken]);
