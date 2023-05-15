@@ -1,18 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-
-'use client';
-
-import { useEffect, useMemo, useState } from 'react';
-
-import { Container, MaxWidths } from '@/components/Container';
 import { Nav } from '@/components/Nav';
+import { Container, MaxWidths } from '@/components/Container';
 import { Grid } from '@/components/Grid';
 import { GridItem } from '@/components/GridItem';
 
-import { SpotifyApi } from '@/services/SpotifyApi';
-import type { Artist, CurrentUserProfileResponse, Track } from '@/types/Spotify.dto';
-
 import styles from './home.module.css';
+import { fetchInitialData } from './fetch';
+import type { HomeProps } from './types';
 
 const NAV_ITEMS = [
   {
@@ -25,80 +19,13 @@ const NAV_ITEMS = [
   }
 ];
 
-interface GenreCount {
-  name: string;
-  count: number;
-}
-
-const Home = () => {
-  const [artists, setArtists] = useState<Artist[]>([]);
-  const [tracks, setTracks] = useState<Track[]>([]);
-  const [trackRecommendations, setTrackRecommendations] = useState<Track[]>([]);
-  const [currentUserProfile, setCurrentUserProfile] = useState<CurrentUserProfileResponse>();
-
-  // TODO this is a temporal feature
-  const spotifyToken = useMemo(() => {
-    // const [, params] = router.asPath.split('#');
-    const searchParams = new URLSearchParams('');
-    return searchParams.get('access_token');
-  }, []);
-
-  const genreCounts = useMemo<GenreCount[]>(() => {
-    const genres = artists.flatMap((artist) => artist.genres);
-    const genreCounter = new Map<string, GenreCount>();
-    genres.forEach((genre) => {
-      const defaultValue = { name: genre, count: 0 };
-      const currentValue = genreCounter.get(genre) ?? defaultValue;
-      const nextValue = {
-        ...currentValue,
-        count: currentValue.count + 1
-      };
-      genreCounter.set(genre, nextValue);
-    });
-    return Array
-      .from(genreCounter.values())
-      .sort((a, b) => b.count - a.count);
-  }, [artists]);
-
-  // TODO this is a temporal feature
-  useEffect(() => {
-    if (!spotifyToken) return;
-    const spotifyApi = new SpotifyApi(spotifyToken);
-
-    Promise.all([
-      spotifyApi.fetchTopArtists(),
-      spotifyApi.fetchTopTracks(),
-      spotifyApi.fetchCurrentUserProfile()
-    ])
-      .then(([topArtistsResponse, topTracksResponse, currentUserProfileResponse]) => {
-        setArtists(topArtistsResponse.items);
-        setTracks(topTracksResponse.items);
-        setCurrentUserProfile(currentUserProfileResponse);
-      })
-      .catch((error) => {
-        console.log(error);
-        // router.replace('/');
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spotifyToken]);
-
-  useEffect(() => {
-    if (genreCounts.length === 0 || !spotifyToken) return;
-    const spotifyApi = new SpotifyApi(spotifyToken);
-    const [firstArtist, secondArtist] = artists;
-    const [firstTrack, secondTrack] = tracks;
-    const [topGenre] = genreCounts;
-    spotifyApi
-      .fetchRecommendations({
-        seed_artists: [firstArtist.id, secondArtist.id],
-        seed_tracks: [firstTrack.id, secondTrack.id],
-        seed_genres: topGenre.name
-      })
-      .then((recommendations) => {
-        setTrackRecommendations(recommendations.tracks);
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spotifyToken, genreCounts]);
+const Home = async ({ searchParams }: HomeProps) => {
+  const {
+    currentUserProfile,
+    artists,
+    tracks,
+    trackRecommendations
+  } = await fetchInitialData(searchParams.code);
 
   return (
     <main>

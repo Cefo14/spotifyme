@@ -1,4 +1,5 @@
 import type {
+  AccessTokenResponse,
   ArtistId,
   CurrentUserProfileResponse,
   Genre,
@@ -16,9 +17,17 @@ export interface RecommendationParams {
   seed_tracks?: TrackId | TrackId[];
 }
 
+export interface CreateAccessTokenRequest {
+  code: string;
+  redirect_uri: string;
+  client_id: string;
+  code_verifier: string;
+}
+
 export interface SpotifyService {
   fetchCurrentUserProfile: () => Promise<CurrentUserProfileResponse>;
   fetchTopArtists: (timeRange: TimeRange) => Promise<TopArtistsResponse>;
   fetchTopTracks: (timeRange: TimeRange) => Promise<TopTracksResponse>;
   fetchRecommendations: (params: RecommendationParams) => Promise<RecommendationsResponse>;
+  createAccessToken: (request: CreateAccessTokenRequest) => Promise<AccessTokenResponse>;
 }

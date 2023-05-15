@@ -1,16 +1,15 @@
-import Link from 'next/link';
 import styles from './page.module.css';
 
 const Login = () => (
   <section className={styles.container}>
-    <Link
+    <a
       className={styles.titleLink}
       href="/api/spotify/authorize"
     >
       <h2 className={styles.title}>
         Login with spotify
       </h2>
-    </Link>
+    </a>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1440 320"

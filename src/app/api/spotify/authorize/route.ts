@@ -1,22 +1,29 @@
-import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
 import { createURLWithQueryParams } from '@/utils/url';
+import { Cookies } from '@/enums/Cookies';
 
 export async function GET() {
-  const state = crypto.randomBytes(16);
+  const verifier = crypto.randomBytes(32).toString('base64url');
+  const state = crypto.randomBytes(14).toString('base64url');
+  const verifierHashed = crypto.createHash('sha256').update(verifier).digest();
   const params = {
+    response_type: 'code',
     client_id: process.env.SPOTIFY_CLIENT_ID,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
     scope: [
       'user-top-read'
     ],
-    response_type: 'token',
-    show_dialog: 'true',
-    state: state.toString('hex')
+    redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+    state,
+    code_challenge_method: 'S256',
+    code_challenge: verifierHashed.toString('base64url'),
+    show_dialog: 'true'
   };
 
   const BASE_URL = 'https://accounts.spotify.com/authorize';
   const url = createURLWithQueryParams(BASE_URL, params);
-  redirect(url);
+  const response = NextResponse.redirect(url);
+  response.cookies.set(Cookies.verifier, verifier);
+  return response;
 }
