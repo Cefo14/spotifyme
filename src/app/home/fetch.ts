@@ -3,10 +3,10 @@ import { cookies } from 'next/headers';
 import { Cookies } from '@/enums/Cookies';
 import { SpotifyApi } from '@/services/SpotifyApi';
 import type { Artist } from '@/types/Spotify.dto';
-import { VerifierCodeMissingError } from '@/errors/VerifierCodeMissingError';
+import { InvalidSpotifyAccessTokenError } from '@/errors/InvalidSpotifyAccessTokenError';
 import type { GenreCount, SpotifyTops } from './types';
 
-const createGenreCounts = (artists: Artist[]): GenreCount[] => {
+const countGenres = (artists: Artist[]): GenreCount[] => {
   const genres = artists.flatMap((artist) => artist.genres);
   const genreCounter = new Map<string, GenreCount>();
   genres.forEach((genre) => {
@@ -21,26 +21,6 @@ const createGenreCounts = (artists: Artist[]): GenreCount[] => {
   return Array
     .from(genreCounter.values())
     .sort((a, b) => b.count - a.count);
-};
-
-const fetchVerifierCookie = (): string => {
-  const verifierCookie = cookies().get(Cookies.verifier);
-  if (!verifierCookie) throw new VerifierCodeMissingError();
-  return verifierCookie.value;
-};
-
-const fetchSpotifyAccessToken = async (code: string, verifier: string): Promise<string> => {
-  const spotifyApi = new SpotifyApi();
-
-  const response = await spotifyApi.createAccessToken({
-    code,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI as string,
-    client_id: process.env.SPOTIFY_CLIENT_ID as string,
-    code_verifier: verifier
-  });
-
-  const { access_token: accessToken } = response;
-  return accessToken;
 };
 
 const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
@@ -61,7 +41,7 @@ const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
 
   const [firstArtist, secondArtist] = artists;
   const [firstTrack, secondTrack] = tracks;
-  const [topGenre] = createGenreCounts(topArtistsResponse.items);
+  const [topGenre] = countGenres(topArtistsResponse.items);
 
   const recommendationsResponse = await spotifyApi.fetchRecommendations({
     seed_artists: [firstArtist.id, secondArtist.id],
@@ -77,8 +57,13 @@ const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
   };
 };
 
-export const fetchInitialData = async (code: string) => {
-  const verifier = fetchVerifierCookie();
-  const accessToken = await fetchSpotifyAccessToken(code, verifier);
-  return fetchSpotifyTops(accessToken);
+const getAccesToken = (): string => {
+  const token = cookies().get(Cookies.access_token)?.value;
+  if (!token) throw new InvalidSpotifyAccessTokenError();
+  return token;
+};
+
+export const fetchInitialData = async () => {
+  const token = getAccesToken();
+  return fetchSpotifyTops(token);
 };

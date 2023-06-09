@@ -4,7 +4,7 @@ const Login = () => (
   <section className={styles.container}>
     <a
       className={styles.titleLink}
-      href="/api/spotify/authorize"
+      href="/api/spotify/request_authorization"
     >
       <h2 className={styles.title}>
         Login with spotify

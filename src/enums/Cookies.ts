@@ -1,3 +1,4 @@
 export const Cookies = {
-  verifier: 'verifier'
+  verifier: 'verifier',
+  access_token: 'access_token'
 } as const;

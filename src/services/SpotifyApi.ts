@@ -14,7 +14,7 @@ import type {
 import type { QueryParams } from '@/types/QueryParams';
 import { TimeRanges } from '@/enums/SpotifyService';
 import { createURLWithQueryParams } from '@/utils/url';
-import { AccessTokenMissingError } from '@/errors/AccessTokenMissingError';
+import { SpotifyApiError } from '@/errors/SpotifyApiError';
 
 export class SpotifyApi implements SpotifyService {
   private readonly BASE_URL = 'https://api.spotify.com/v1';
@@ -24,7 +24,6 @@ export class SpotifyApi implements SpotifyService {
   ) {}
 
   private createConfig(config: RequestInit): RequestInit {
-    if (!this.token) throw new AccessTokenMissingError();
     return {
       method: 'GET',
       headers: {
@@ -35,6 +34,12 @@ export class SpotifyApi implements SpotifyService {
     };
   }
 
+  private validateFetch(response: Response): void {
+    if (!response.ok) {
+      throw new SpotifyApiError('Failed to fetch data', response);
+    }
+  }
+
   setToken(token: string) {
     this.token = token;
   }
@@ -43,6 +48,7 @@ export class SpotifyApi implements SpotifyService {
     const url = `${this.BASE_URL}/me`;
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(url, config);
+    this.validateFetch(response);
     const data: CurrentUserProfileResponse = await response.json();
     return data;
   }
@@ -52,6 +58,7 @@ export class SpotifyApi implements SpotifyService {
     const urlWithParams = createURLWithQueryParams(url, { time_range: timeRange });
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(urlWithParams, config);
+    this.validateFetch(response);
     const data: TopArtistsResponse = await response.json();
     return data;
   }
@@ -61,6 +68,7 @@ export class SpotifyApi implements SpotifyService {
     const urlWithParams = createURLWithQueryParams(url, { time_range: timeRange });
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(urlWithParams, config);
+    this.validateFetch(response);
     const data: TopTracksResponse = await response.json();
     return data;
   }
@@ -70,6 +78,7 @@ export class SpotifyApi implements SpotifyService {
     const urlWithParams = createURLWithQueryParams(url, params as QueryParams);
     const config = this.createConfig({ method: 'GET' });
     const response = await fetch(urlWithParams, config);
+    this.validateFetch(response);
     const data: RecommendationsResponse = await response.json();
     return data;
   }
@@ -82,11 +91,11 @@ export class SpotifyApi implements SpotifyService {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         ...request
-      }),
-      cache: 'force-cache'
+      })
     };
 
     const response = await fetch(url, config);
+    this.validateFetch(response);
     const data: AccessTokenResponse = await response.json();
     return data;
   }

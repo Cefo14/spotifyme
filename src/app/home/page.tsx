@@ -1,35 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
-import { Nav } from '@/components/Nav';
+import Image from 'next/image';
+
 import { Container, MaxWidths } from '@/components/Container';
 import { Grid } from '@/components/Grid';
 import { GridItem } from '@/components/GridItem';
 
 import styles from './home.module.css';
 import { fetchInitialData } from './fetch';
-import type { HomeProps } from './types';
 
-const NAV_ITEMS = [
-  {
-    name: 'Top Artist',
-    url: '#'
-  },
-  {
-    name: 'Top Tracks',
-    url: '#'
-  }
-];
-
-const Home = async ({ searchParams }: HomeProps) => {
+const Home = async () => {
   const {
-    currentUserProfile,
     artists,
     tracks,
     trackRecommendations
-  } = await fetchInitialData(searchParams.code);
+  } = await fetchInitialData();
 
   return (
     <main>
-      <Nav title={currentUserProfile?.display_name} items={NAV_ITEMS} />
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
         <h2 className={styles.textCenter}>Top Artists</h2>
         <Grid>
@@ -37,12 +23,13 @@ const Home = async ({ searchParams }: HomeProps) => {
             artists.map((artist, index) => (
               <GridItem key={artist.id}>
                 <article className={styles.card}>
-                  <img
+                  <Image
                     alt={artist.name}
                     src={artist.images[0].url}
                     width={250}
                     height={250}
                     className={styles.cardImage}
+                    loading="lazy"
                   />
                   <h3 className={styles.textCenter}>
                     <div>{`#${index + 1}`}</div>
@@ -61,12 +48,13 @@ const Home = async ({ searchParams }: HomeProps) => {
             tracks.map((track, index) => (
               <GridItem key={track.id}>
                 <article className={styles.card}>
-                  <img
+                  <Image
                     alt={track.name}
                     src={track.album.images[0].url}
                     width={250}
                     height={250}
                     className={styles.cardImage}
+                    loading="lazy"
                   />
                   <h3 className={styles.textCenter}>
                     <div>{`#${index + 1}`}</div>
