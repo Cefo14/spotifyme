@@ -24,6 +24,17 @@ export async function GET(request: NextRequest) {
     code_verifier: validation.verifier
   });
 
-  response.cookies.set(Cookies.access_token, spotifyApiResponse.access_token);
+  response.cookies.set(
+    Cookies.access_token,
+    spotifyApiResponse.access_token,
+    { maxAge: spotifyApiResponse.expires_in }
+  );
+
+  response.cookies.set(
+    Cookies.verifier,
+    validation.verifier,
+    { maxAge: spotifyApiResponse.expires_in }
+  );
+
   return response;
 }
