@@ -63,7 +63,7 @@ const getAccesToken = (): string => {
   return token;
 };
 
-export const fetchInitialData = async () => {
+export const getServerSideProps = async () => {
   const token = getAccesToken();
   return fetchSpotifyTops(token);
 };

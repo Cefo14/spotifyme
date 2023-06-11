@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  width: 100%;
+  max-width: 358px;
+  margin: 0;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: var(--tertiary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}

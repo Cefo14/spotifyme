@@ -24,6 +24,10 @@ export async function GET(request: NextRequest) {
     code_verifier: validation.verifier
   });
 
+  const DEFAULT_LOCALE = 'es';
+  const acceptLanguage = request.headers.get('accept-language') ?? DEFAULT_LOCALE;
+  const [locale] = acceptLanguage.split(',');
+
   response.cookies.set(
     Cookies.access_token,
     spotifyApiResponse.access_token,
@@ -33,6 +37,12 @@ export async function GET(request: NextRequest) {
   response.cookies.set(
     Cookies.verifier,
     validation.verifier,
+    { maxAge: spotifyApiResponse.expires_in }
+  );
+
+  response.cookies.set(
+    Cookies.locale,
+    locale,
     { maxAge: spotifyApiResponse.expires_in }
   );
 

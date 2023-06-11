@@ -5,14 +5,14 @@ import { Grid } from '@/components/Grid';
 import { GridItem } from '@/components/GridItem';
 
 import styles from './home.module.css';
-import { fetchInitialData } from './fetch';
+import { getServerSideProps } from './props';
 
 const Home = async () => {
   const {
     artists,
     tracks,
     trackRecommendations
-  } = await fetchInitialData();
+  } = await getServerSideProps();
 
   return (
     <main>
