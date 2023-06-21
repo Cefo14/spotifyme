@@ -14,7 +14,7 @@ import type {
 import type { QueryParams } from '@/types/QueryParams';
 import { TimeRanges } from '@/enums/SpotifyService';
 import { createURLWithQueryParams } from '@/utils/url';
-import { SpotifyApiError } from '@/errors/SpotifyApiError';
+import { HttpClientError } from '@/errors/HttpClientError';
 
 export class SpotifyApi implements SpotifyService {
   private readonly BASE_URL = 'https://api.spotify.com/v1';
@@ -36,7 +36,7 @@ export class SpotifyApi implements SpotifyService {
 
   private validateFetch(response: Response): void {
     if (!response.ok) {
-      throw new SpotifyApiError('Failed to fetch data', response);
+      throw new HttpClientError('SpotifyApi failed to fetch data', response);
     }
   }
 

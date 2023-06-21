@@ -3,7 +3,8 @@ import { cookies } from 'next/headers';
 import { Cookies } from '@/enums/Cookies';
 import { SpotifyApi } from '@/services/SpotifyApi';
 import type { Artist } from '@/types/Spotify.dto';
-import { InvalidSpotifyAccessTokenError } from '@/errors/InvalidSpotifyAccessTokenError';
+import { CookieValidation } from '@/validations/CookieValidation';
+
 import type { GenreCount, SpotifyTops } from './types';
 
 const countGenres = (artists: Artist[]): GenreCount[] => {
@@ -58,9 +59,9 @@ const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
 };
 
 const getAccesToken = (): string => {
-  const token = cookies().get(Cookies.access_token)?.value;
-  if (!token) throw new InvalidSpotifyAccessTokenError();
-  return token;
+  const token = cookies().get(Cookies.access_token);
+  const validation = CookieValidation.parse(token);
+  return validation.value;
 };
 
 export const getServerSideProps = async () => {

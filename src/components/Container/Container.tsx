@@ -10,7 +10,7 @@ import {
 } from './constants';
 import styles from './styles.module.css';
 
-export const Container = <C extends ElementType>({
+export const Container = <C extends ElementType = typeof DEFAULT_COMPONENT >({
   component,
   className,
   children,

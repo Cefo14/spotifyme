@@ -13,6 +13,9 @@ dependencies:
   clsx:
     specifier: 1.2.1
     version: 1.2.1
+  http-status:
+    specifier: 1.6.2
+    version: 1.6.2
   next:
     specifier: 13.4.2
     version: 13.4.2(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
@@ -3585,6 +3588,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /http-status@1.6.2:
+    resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
+    engines: {node: '>= 0.4.0'}
+    dev: false
 
   /https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}

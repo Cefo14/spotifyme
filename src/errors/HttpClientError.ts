@@ -1,4 +1,4 @@
-export class SpotifyApiError extends Error {
+export class HttpClientError extends Error {
   public readonly response;
 
   constructor(message: string, response: Response) {

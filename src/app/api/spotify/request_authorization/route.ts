@@ -25,6 +25,6 @@ export async function GET() {
   const url = createURLWithQueryParams(BASE_URL, params);
 
   const response = NextResponse.redirect(url);
-  response.cookies.set(Cookies.verifier, verifier);
+  response.cookies.set(Cookies.verifier, verifier, { httpOnly: true });
   return response;
 }
