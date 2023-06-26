@@ -3,6 +3,7 @@ import { Cookies } from '@/enums/Cookies';
 import { SpotifyApi } from '@/services/SpotifyApi';
 import { CreateAccessTokenValidation } from '@/validations/CreateAccessTokenValidation';
 import { errorHandler } from '@/utils/errorHandler';
+import { PUBLIC_ROUTES } from '@/utils/routes';
 
 const getAcceptLanguage = (request: NextRequest) => {
   const DEFAULT_LOCALE = 'es';
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
     const verifier = request.cookies.get(Cookies.verifier)?.value;
     const validation = await CreateAccessTokenValidation.parseAsync({ code, verifier });
 
-    const redirectToHome = NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/home`);
+    const redirectToHome = NextResponse.redirect(PUBLIC_ROUTES.spotifyme);
     const ACCESS_TOKEN = request.cookies.get(Cookies.access_token)?.value;
     if (ACCESS_TOKEN) return redirectToHome;
 

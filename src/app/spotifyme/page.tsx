@@ -4,16 +4,16 @@ import { Container, MaxWidths } from '@/components/Container';
 import { Grid } from '@/components/Grid';
 import { GridItem } from '@/components/GridItem';
 
-import styles from './home.module.css';
+import styles from './styles.module.css';
 import { getServerSideProps } from './props';
 
-const Home = async () => {
+const Spotifyme = async () => {
   const {
     artists,
     tracks,
     trackRecommendations
   } = await getServerSideProps();
-
+  console.log(artists.map((artist) => artist.name));
   return (
     <main>
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
@@ -88,4 +88,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default Spotifyme;
