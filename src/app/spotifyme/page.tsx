@@ -13,7 +13,7 @@ const Spotifyme = async () => {
     tracks,
     trackRecommendations
   } = await getServerSideProps();
-  console.log(artists.map((artist) => artist.name));
+
   return (
     <main>
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
