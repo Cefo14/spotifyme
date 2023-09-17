@@ -16,6 +16,9 @@ dependencies:
   ai:
     specifier: 2.1.8
     version: 2.1.8(react@18.2.0)(svelte@3.59.2)(vue@3.3.4)
+  bard-ai:
+    specifier: 2.0.3
+    version: 2.0.3
   clsx:
     specifier: 1.2.1
     version: 1.2.1
@@ -25,12 +28,21 @@ dependencies:
   next:
     specifier: 13.4.2
     version: 13.4.2(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+  normalize-text:
+    specifier: 2.4.1
+    version: 2.4.1
   react:
     specifier: 18.2.0
     version: 18.2.0
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-loading-skeleton:
+    specifier: 3.3.1
+    version: 3.3.1(react@18.2.0)
+  remove-markdown:
+    specifier: 0.5.0
+    version: 0.5.0
   sanitize.css:
     specifier: 13.0.0
     version: 13.0.0
@@ -63,6 +75,9 @@ devDependencies:
   '@types/jest':
     specifier: 29.5.1
     version: 29.5.1
+  '@types/remove-markdown':
+    specifier: 0.3.1
+    version: 0.3.1
   '@types/testing-library__jest-dom':
     specifier: 5.14.5
     version: 5.14.5
@@ -470,6 +485,10 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@bitty/pipe@0.3.0:
+    resolution: {integrity: sha512-Ft4tmMM8vfuQOD3jpmvCYPEXoLhWLXWh/Mkeql09d3+9FFMaQBdFdo8GBmhQ01z+D6P3NkqNq02rbb4oBkhjLw==}
+    dev: false
 
   /@commitlint/cli@17.6.3:
     resolution: {integrity: sha512-ItSz2fd4F+CujgIbQOfNNerDF1eFlsBGEfp9QcCb1kxTYMuKTYZzA6Nu1YRRrIaaWwe2E7awUGpIMrPoZkOG3A==}
@@ -1347,6 +1366,10 @@ packages:
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
+  /@types/remove-markdown@0.3.1:
+    resolution: {integrity: sha512-JpJNEJEsmmltyL2LdE8KRjJ0L2ad5vgLibqNj85clohT9AyTrfN6jvHxStPshDkmtcL/ShFu0p2tbY7DBS1mqQ==}
+    dev: true
+
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
 
@@ -1994,6 +2017,10 @@ packages:
   /balanced-match@2.0.0:
     resolution: {integrity: sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==}
     dev: true
+
+  /bard-ai@2.0.3:
+    resolution: {integrity: sha512-vlL5t4RG3MMG2m2JdZB/6DbcFlHaxdoDqvOOaOTS7pt/VR971pTAFjrjIZV25iiNvcDkzl6/Y2vrqCYkSwGyxg==}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -5141,6 +5168,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /normalize-text@2.4.1:
+    resolution: {integrity: sha512-cmckAM5KW/lvqJoDUZWOdMHswvEA5LBEtkR/0YXv6iNV+4+5Aha+1lOKQuVFT38lnRavDRSzpoxb9DTt/3nbOw==}
+    dependencies:
+      '@bitty/pipe': 0.3.0
+    dev: false
+
   /npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
@@ -5572,6 +5605,14 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
+  /react-loading-skeleton@3.3.1(react@18.2.0):
+    resolution: {integrity: sha512-NilqqwMh2v9omN7LteiDloEVpFyMIa0VGqF+ukqp0ncVlYu1sKYbYGX9JEl+GtOT9TKsh04zCHAbavnQ2USldA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -5626,6 +5667,10 @@ packages:
       define-properties: 1.2.0
       functions-have-names: 1.2.3
     dev: true
+
+  /remove-markdown@0.5.0:
+    resolution: {integrity: sha512-x917M80K97K5IN1L8lUvFehsfhR8cYjGQ/yAMRI9E7JIKivtl5Emo5iD13DhMr+VojzMCiYk8V2byNPwT/oapg==}
+    dev: false
 
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}

@@ -24,7 +24,14 @@ const countGenres = (artists: Artist[]): GenreCount[] => {
     .sort((a, b) => b.count - a.count);
 };
 
-const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
+const getAccesToken = (): string => {
+  const token = cookies().get(Cookies.access_token);
+  const validation = CookieValidation.parse(token);
+  return validation.value;
+};
+
+export const getServerSideProps = async (): Promise<SpotifyTops> => {
+  const token = getAccesToken();
   const spotifyApi = new SpotifyApi(token);
 
   const [
@@ -56,15 +63,4 @@ const fetchSpotifyTops = async (token: string): Promise<SpotifyTops> => {
     tracks: topTracksResponse.items,
     trackRecommendations: recommendationsResponse.tracks
   };
-};
-
-const getAccesToken = (): string => {
-  const token = cookies().get(Cookies.access_token);
-  const validation = CookieValidation.parse(token);
-  return validation.value;
-};
-
-export const getServerSideProps = async () => {
-  const token = getAccesToken();
-  return fetchSpotifyTops(token);
 };

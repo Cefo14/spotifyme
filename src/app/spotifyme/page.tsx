@@ -6,17 +6,26 @@ import { GridItem } from '@/components/GridItem';
 
 import styles from './styles.module.css';
 import { getServerSideProps } from './props';
+import UserDescription from './UserDescription';
 
 const Spotifyme = async () => {
   const {
     artists,
     tracks,
-    trackRecommendations
+    trackRecommendations,
+    currentUserProfile
   } = await getServerSideProps();
 
   return (
     <main>
       <Container maxWidth={MaxWidths.lg} className={styles.container}>
+        <h1>
+          Hello
+          {' '}
+          {currentUserProfile.display_name}
+        </h1>
+        <UserDescription artists={artists} />
+
         <h2 className={styles.textCenter}>Top Artists</h2>
         <Grid>
           {

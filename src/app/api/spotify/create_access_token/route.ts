@@ -6,7 +6,7 @@ import { errorHandler } from '@/utils/errorHandler';
 import { PUBLIC_ROUTES } from '@/utils/routes';
 
 const getAcceptLanguage = (request: NextRequest) => {
-  const DEFAULT_LOCALE = 'es';
+  const DEFAULT_LOCALE = 'en';
   const acceptLanguage = request.headers.get('accept-language') ?? DEFAULT_LOCALE;
   const [language] = acceptLanguage.split(',');
   return language;
